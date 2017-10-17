@@ -1,5 +1,5 @@
 # React SSR Practice App
-An example of server-side rendering via the MERN stack.
+An example app that utilizes React's server-side rendering features, all within the MERN stack
 
 Stack includes:
 - React
