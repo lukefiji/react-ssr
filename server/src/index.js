@@ -1,16 +1,29 @@
-const express = require('express');
-const React = require('react');
-
-// Making ES6 modules loadable via CommonJS
-const renderToString = require('react-dom/server').renderToString;
-const Home = require('./client/components/Home').default;
+// ES2015 imports in Node thanks to Webpack
+import express from 'express';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import Home from './client/components/Home';
 
 const app = express();
 
+// Makes 'public' static; makes it accessible to the outside world
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
+  // Render React component to a HTML string, JSX is compiled by Webpack
   const content = renderToString(<Home />);
 
-  res.send(content);
+  const html = `
+   <html>
+    <head></head>
+    <body>
+      <div>${content}</div>
+      <script src="bundle.js"></script>
+    </body>
+   </html>
+  `;
+
+  res.send(html);
 });
 
 app.listen(3000, () => {

@@ -72,3 +72,4 @@ build
 my-app*
 template/src/__tests__/__snapshots__/
 /.changelog
+public/bundle.js
