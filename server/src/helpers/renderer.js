@@ -1,10 +1,16 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import Home from '../client/components/Home';
+import { StaticRouter } from 'react-router-dom';
+import Routes from '../client/Routes';
 
-export default () => {
+export default req => {
   // Render React component to a HTML string, JSX is compiled by Webpack
-  const content = renderToString(<Home />);
+  // StaticRouter requires a path to determine which component(s) to render
+  const content = renderToString(
+    <StaticRouter location={req.path} context={{}}>
+      <Routes />
+    </StaticRouter>
+  );
 
   return `
     <html>

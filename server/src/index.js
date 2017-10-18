@@ -7,8 +7,10 @@ const app = express();
 // Makes 'public' static; makes it accessible to the outside world
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send(renderer());
+app.get('*', (req, res) => {
+  // Send current route to renderer to determine which
+  // component it should render on the server
+  res.send(renderer(req));
 });
 
 app.listen(3000, () => {
