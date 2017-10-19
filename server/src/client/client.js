@@ -1,4 +1,5 @@
 // Startup point for clientside app
+import 'babel-polyfill'; // Regenerator runtime definition
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';

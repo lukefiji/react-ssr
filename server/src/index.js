@@ -1,4 +1,5 @@
 // ES2015 imports in Node thanks to Webpack
+import 'babel-polyfill'; // Regenerator runtime definition
 import express from 'express';
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
