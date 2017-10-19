@@ -1,6 +1,7 @@
 // ES2015 imports in Node thanks to Webpack
 import express from 'express';
 import renderer from './helpers/renderer';
+import createStore from './helpers/createStore';
 
 const app = express();
 
@@ -8,9 +9,14 @@ const app = express();
 app.use(express.static('public'));
 
 app.get('*', (req, res) => {
-  // Send current route to renderer to determine which
-  // component it should render on the server
-  res.send(renderer(req));
+  // Creating store state before being rendered
+  const store = createStore();
+
+  // Intitialize and load data into store
+
+  // Send current route and store to renderer to determine
+  // state and which it should render on the server
+  res.send(renderer(req, store));
 });
 
 app.listen(3000, () => {
