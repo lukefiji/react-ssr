@@ -1,6 +1,9 @@
 // ES2015 imports in Node thanks to Webpack
 import 'babel-polyfill'; // Regenerator runtime definition
 import express from 'express';
+import { matchRoutes } from 'react-router-config';
+
+import Routes from './client/Routes';
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
 
@@ -13,10 +16,14 @@ app.get('*', (req, res) => {
   // Creating store state before being rendered
   const store = createStore();
 
-  // Intitialize and load data into store
+  // Look at current route and returns array of
+  // components that are going to be rendered
+  matchRoutes(Routes, req.path)
+    // Map over each matching route's loadData method
+    .map(({ route }) => {
+      return route.loadData ? route.loadData() : null;
+    });
 
-  // Send current route and store to renderer to determine
-  // state and which it should render on the server
   res.send(renderer(req, store));
 });
 
