@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Home from './components/Home';
-import UsersList, { loadData } from './components/UsersList';
+import HomePage from './pages/HomePage';
+import UsersListPage from './pages/UsersListPage';
 
 /**
  * Set up one source of truth for routes, to be used inside
@@ -10,14 +10,14 @@ import UsersList, { loadData } from './components/UsersList';
  */
 export default [
   {
+    // {loadData, component: HomePage}
+    ...HomePage,
     path: '/',
-    component: Home,
     exact: true
   },
   {
-    loadData,
-    path: '/users',
-    component: UsersList
+    ...UsersListPage,
+    path: '/users'
   }
 ];
 

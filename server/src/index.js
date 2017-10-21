@@ -18,13 +18,18 @@ app.get('*', (req, res) => {
 
   // Look at current route and returns array of
   // components that are going to be rendered
-  matchRoutes(Routes, req.path)
+  const promises = matchRoutes(Routes, req.path)
     // Map over each matching route's loadData method
     .map(({ route }) => {
-      return route.loadData ? route.loadData() : null;
+      // Pass store into loadData
+      return route.loadData ? route.loadData(store) : null;
     });
 
-  res.send(renderer(req, store));
+  // Wait for all loadData promises to resolve
+  Promise.all(promises).then(() => {
+    // Sends all loadData data to renderer
+    res.send(renderer(req, store));
+  });
 });
 
 app.listen(3000, () => {

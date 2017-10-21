@@ -27,11 +27,17 @@ function mapStateToProps(state) {
   return { users: state.users };
 }
 
-function loadData() {
-  console.log('Loading data...');
+function loadData(store) {
+  // Manually dispatch, and return a promise making a network request
+  // Doesn't use connect because it doesn't work /w provider
+  return store.dispatch(fetchUsers());
 }
 
 // Named export
 export { loadData };
 
-export default connect(mapStateToProps, { fetchUsers })(UsersList);
+// Export an object for use in Routes
+export default {
+  loadData,
+  component: connect(mapStateToProps, { fetchUsers })(UsersList)
+};

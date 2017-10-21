@@ -9,4 +9,5 @@ const Home = () => {
   );
 };
 
-export default Home;
+// Export an object for use in Routes
+export default { component: Home };
